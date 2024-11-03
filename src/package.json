@@ -1,10 +1,8 @@
 {
   "dependencies": {
-    "axios": "^1.7.7",
     "chalk": "^5.3.0",
     "dotenv": "^16.4.5",
-    "express": "^4.21.0",
-    "puppeteer": "^23.6.1"
+    "express": "^4.21.0"
   },
   "name": "antiafk",
   "version": "1.0.0",
