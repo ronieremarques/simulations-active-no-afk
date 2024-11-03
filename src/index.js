@@ -2,12 +2,10 @@ require("dotenv").config();
 const express = require('express');
 const { spawn } = require('child_process');
 const path = require('path');
-const puppeteer = require('puppeteer');
 const app = express();
 const os = require('os');
 
 let scriptProcess = null;
-let browser;
 
 // Middleware para servir arquivos estáticos da pasta 'src'
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,34 +28,11 @@ app.post('/ativar', async (req, res) => {
 
     // Verificar se o processo foi iniciado corretamente
     if (scriptProcess.pid) {
-
-        browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox']
-        });
-        const page = await browser.newPage();
-        await page.goto('https://www.youtube.com/watch?v=kV47c0lACdg');
-        
-        // Aguarde o carregamento do vídeo
-        await page.waitForSelector('video');
-        
-        // Mute e loop o vídeo
-        await page.evaluate(() => {
-            const video = document.querySelector('video');
-            video.muted = true; // Muta o vídeo
-            video.loop = true;  // Define o loop
-            video.play();       // Inicia a reprodução
-        
-            // Reinicia o vídeo quando termina
-            video.addEventListener('ended', () => {
-                video.currentTime = 0; // Reinicia o vídeo
-                video.play();          // Reproduz novamente
-            });
-        });
-
-        res.send('Script AFK ativado.');
+        const chalk = await import('chalk');
+        console.log(chalk.default.bgGreen(chalk.default.black('\n + Entrada confirmada, agora você está no modo AFK.')));
+        res.send(chalk.default.bgGreen(chalk.default.black('\n + Entrada confirmada, agora você está no modo AFK.')));
     } else {
-        res.send('Falha ao ativar o script.');
+        res.send(chalk.default.bgRed(chalk.default.white('\n - Falha ao ativar o script.')));
     }
 });
 
@@ -71,14 +46,12 @@ app.post('/desativar', async (req, res) => {
         // Finaliza o processo
         scriptProcess.kill();  // Não usamos -pid pois o processo não é desassociado
         scriptProcess = null;
-        if (browser) {
-            await browser.close();
-            browser = null;
-        }
-        res.send('Script AFK desativado.');
+        const chalk = await import('chalk');
+        console.log(chalk.default.bgRed(chalk.default.white('\n - Você acaba de sair do modo AFK.')));
+        res.send(chalk.default.bgRed(chalk.default.white('\n - Você acaba de sair do modo AFK.')));
     } catch (err) {
-        console.error(`Erro ao desativar o script: ${err.message}`);
-        res.send('Erro ao desativar o script.');
+        console.log(chalk.default.bgRed(chalk.default.white('\n - Erro ao desativar o script.')));
+        res.send(chalk.default.bgRed(chalk.default.white('\n - Erro ao desativar o script.')));
     }
 });
 
@@ -114,51 +87,6 @@ app.listen(process.env.PORT, (req, res) => {
               ! NÃO FECHE ESSA JANELA !
 `);
 
-        const readline = require('readline').createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
-
-        const askToOpenPanel = () => {
-            readline.question('Deseja abrir o painel agora? (y/n): ', (answer) => {
-                if (answer.toLowerCase() === 'y') {
-                    console.log('Abrindo painel em ' + 'http://' + ipAddress + ':' + process.env.PORT);
-                    // Chama o openbrowser.bat
-                    spawn('cmd.exe', ['/c', 'openbrowser.bat'], { stdio: 'inherit' });
-                    readline.close();
-                } else if (answer.toLowerCase() === 'n') {
-                    console.log('Você pode abrir o painel mais tarde em ' + 'http://' + ipAddress + ':' + process.env.PORT);
-                    readline.close();
-                } else {
-                    console.log('Resposta inválida. Por favor, digite "y" para sim ou "n" para não.');
-                    askToOpenPanel(); // Pergunta novamente
-                }
-            });
-        };
-
-        askToOpenPanel(); // Chama a função para perguntar ao usuário
-
-        // Inicializar o Puppeteer e abrir o aNotepad
-        browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox']
-        }); // Inicializa o browser
-
-        const page = await browser.newPage(); // Cria uma nova página
-        await page.goto('https://anotepad.com/');
-
-        // Espera o campo de título
-        await page.waitForSelector('#edit_title');
-        await page.type('#edit_title', 'https://github.com/ronieremarquesjs'); // Digita o título
-
-        // Espera o campo de conteúdo estar disponível
-        await page.waitForSelector('#edit_textarea'); // Espera o campo de conteúdo
-
-        // Loop para preencher o conteúdo
-        const content = 'https://github.com/ronieremarquesjs'; // Conteúdo a ser digitado
-        while (true) {
-            await page.type('#edit_textarea', content); // Digita o conteúdo
-            await page.keyboard.press('Enter'); // Pressiona Enter para adicionar nova linha
-        }
+        console.log(chalk.default.bgGreen(chalk.default.black(' + O monitor de modo afk foi iniciado, basta parar de usar o PC que o script será ativado automaticamente.')));
     })();
 });
