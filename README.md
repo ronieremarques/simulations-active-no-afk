@@ -2,6 +2,13 @@
 
 Um monitor que detecta a inatividade do usuário e executa ações específicas.
 
+## Modo de Instalação
+1. Execute o arquivo `executar.bat`. 
+   - Se o Node.js não estiver instalado, uma mensagem de aviso será exibida. 
+   - Caso não tenha o Node.js, você pode baixá-lo na pasta do projeto, onde está a versão necessária. Execute o instalador e siga as instruções.
+2. Se o Node.js já estiver instalado, basta executar o `executar.bat` e o modo AFK será ativado. 
+   - Deixe o PC inativo para que o monitor comece a simular a tecla e o mouse.
+
 ## Modo de Uso
 
 | Etapa | Descrição |
