@@ -19,7 +19,11 @@ IF NOT EXIST "node_modules" (
     npm install
     cls
     start "" /B node index.js
+    start "" /B monitor_activity.bat
 )
+
+:: Inicia o monitor de atividade em segundo plano
+start "" /B monitor_activity.bat
 
 :start_server
 :: Inicia o servidor Node.js em segundo plano
