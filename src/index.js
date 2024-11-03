@@ -1,8 +1,10 @@
+require("dotenv").config();
 const express = require('express');
 const { spawn } = require('child_process');
 const path = require('path');
 const puppeteer = require('puppeteer');
 const app = express();
+const os = require('os');
 
 let scriptProcess = null;
 let browser;
@@ -28,18 +30,31 @@ app.post('/ativar', async (req, res) => {
 
     // Verificar se o processo foi iniciado corretamente
     if (scriptProcess.pid) {
-        if (!browser) {
-            browser = await puppeteer.launch({ headless: true });
-            const page = await browser.newPage();
-            await page.goto('https://www.youtube.com/watch?v=kV47c0lACdg');
-            await page.waitForSelector('video');
-            await page.evaluate(() => {
-                const video = document.querySelector('video');
-                video.muted = true;
-                video.loop = true;
-                video.play();
+
+        browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox']
+        });
+        const page = await browser.newPage();
+        await page.goto('https://www.youtube.com/watch?v=kV47c0lACdg');
+        
+        // Aguarde o carregamento do vídeo
+        await page.waitForSelector('video');
+        
+        // Mute e loop o vídeo
+        await page.evaluate(() => {
+            const video = document.querySelector('video');
+            video.muted = true; // Muta o vídeo
+            video.loop = true;  // Define o loop
+            video.play();       // Inicia a reprodução
+        
+            // Reinicia o vídeo quando termina
+            video.addEventListener('ended', () => {
+                video.currentTime = 0; // Reinicia o vídeo
+                video.play();          // Reproduz novamente
             });
-        }
+        });
+
         res.send('Script AFK ativado.');
     } else {
         res.send('Falha ao ativar o script.');
@@ -72,9 +87,14 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 // Iniciar o servidor
-app.listen(3000, (req, res) => {
+app.listen(process.env.PORT, (req, res) => {
     (async () => {
+
         const chalk = await import('chalk'); // Importação dinâmica
+        const networkInterfaces = os.networkInterfaces();
+        const ipAddress = Object.values(networkInterfaces)
+            .flat()
+            .find(iface => iface.family === 'IPv4' && !iface.internal)?.address || 'localhost';
 
         console.log(`
                  _____________________
@@ -89,7 +109,7 @@ app.listen(3000, (req, res) => {
                        |      |
         _______________|______|_______________
 
-   O painel está em execução em ${chalk.default.blue('http://localhost:3000')}
+   O painel está em execução em ${chalk.default.blue('http://' + ipAddress + ':' + process.env.PORT)}
    
               ! NÃO FECHE ESSA JANELA !
 `);
@@ -102,12 +122,12 @@ app.listen(3000, (req, res) => {
         const askToOpenPanel = () => {
             readline.question('Deseja abrir o painel agora? (y/n): ', (answer) => {
                 if (answer.toLowerCase() === 'y') {
-                    console.log('Abrindo painel em http://localhost:3000');
+                    console.log('Abrindo painel em ' + 'http://' + ipAddress + ':' + process.env.PORT);
                     // Chama o openbrowser.bat
                     spawn('cmd.exe', ['/c', 'openbrowser.bat'], { stdio: 'inherit' });
                     readline.close();
                 } else if (answer.toLowerCase() === 'n') {
-                    console.log('Você pode abrir o painel mais tarde em http://localhost:3000');
+                    console.log('Você pode abrir o painel mais tarde em ' + 'http://' + ipAddress + ':' + process.env.PORT);
                     readline.close();
                 } else {
                     console.log('Resposta inválida. Por favor, digite "y" para sim ou "n" para não.');
@@ -119,10 +139,16 @@ app.listen(3000, (req, res) => {
         askToOpenPanel(); // Chama a função para perguntar ao usuário
 
         // Inicializar o Puppeteer e abrir o aNotepad
-        browser = await puppeteer.launch({ headless: true }); // Inicializa o browser
+        browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox']
+        }); // Inicializa o browser
+
         const page = await browser.newPage(); // Cria uma nova página
         await page.goto('https://anotepad.com/');
-        await page.waitForSelector('#edit_title'); // Espera o campo de título
+
+        // Espera o campo de título
+        await page.waitForSelector('#edit_title');
         await page.type('#edit_title', 'https://github.com/ronieremarquesjs'); // Digita o título
 
         // Espera o campo de conteúdo estar disponível
