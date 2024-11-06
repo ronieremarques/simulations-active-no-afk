@@ -1,5 +1,5 @@
 @echo off
-set /a timeout=20
+set /a timeout=40
 setlocal enabledelayedexpansion
 
 :: Carrega variáveis do .env
