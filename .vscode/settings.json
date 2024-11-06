@@ -1,11 +1,8 @@
 {
     "files.exclude": {
-        "src/node_modules": true,
         "src/package-lock.json": true,
-        "src/package.json": true,
         "README.md": false,
         "LICENSE": true,
         ".gitignore": true,
-        "src/.env": true
     }
 }

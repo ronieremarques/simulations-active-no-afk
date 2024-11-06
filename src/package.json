@@ -2,7 +2,8 @@
   "dependencies": {
     "chalk": "^5.3.0",
     "dotenv": "^16.4.5",
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "axios": "^1.7.7"
   },
   "name": "antiafk",
   "version": "1.0.0",

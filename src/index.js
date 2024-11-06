@@ -4,6 +4,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 const app = express();
 const os = require('os');
+const axios = require('axios');
 
 let scriptProcess = null;
 let entryTime = null; // Variável para armazenar a hora de entrada
@@ -16,6 +17,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/status', (req, res) => {
     res.json({ active: scriptProcess !== null });
 });
+
+// Função para enviar notificação para o Discord
+const sendDiscordNotification = async (ipAddress, message, isEntry) => {
+    if (process.env.WEBHOOK_NOTIFICATION) {
+        try {
+            const embedColor = isEntry ? 3066993 : 15158332; // Verde para entrada, vermelho para saída
+            await axios.post(process.env.WEBHOOK_NOTIFICATION, {
+                embeds: [{
+                    description: message,
+                    color: embedColor, // Cor do embed
+                    timestamp: new Date().toISOString(),
+                    footer: {
+                        text: 'Developer - ronieremarquesjs',
+                        icon_url: 'https://images-ext-1.discordapp.net/external/y19x9Pq1Y7F5Xg-ulgI8fL9sv7IEAUHRiBruVG-Kqds/%3Fv%3D4/https/avatars.githubusercontent.com/u/178500256?format=webp&width=413&height=413'
+                    },
+                    author: {
+                        name: ipAddress,
+                        url: `https://github.com/ronieremarquesjs/anti-afk-azure-vm-darkcloud`
+                    }
+                }]
+            });
+        } catch (error) {
+            console.error('Erro ao enviar notificação:', error);
+        }
+    }
+};
 
 // Ativar o script
 app.post('/ativar', async (req, res) => {
@@ -31,8 +58,13 @@ app.post('/ativar', async (req, res) => {
     // Verificar se o processo foi iniciado corretamente
     if (scriptProcess.pid) {
         entryTime = new Date(); // Captura a hora de entrada
+        const ipAddress = Object.values(os.networkInterfaces())
+            .flat()
+            .find(iface => iface.family === 'IPv4' && !iface.internal)?.address || 'localhost';
         const chalk = await import('chalk');
-        res.send(chalk.default.bgGreen(chalk.default.black(`\n + Entrada confirmada em ${entryTime.toLocaleString()}, agora você está no modo AFK.`)));
+        const message = `\n + Entrada confirmada em ${entryTime.toLocaleString()}, agora você está no modo AFK.`;
+        res.send(chalk.default.bgGreen(chalk.default.black(message)));
+        await sendDiscordNotification(ipAddress, message, true);
     } else {
         res.send(chalk.default.bgRed(chalk.default.white('\n - Falha ao ativar o script.')));
     }
@@ -49,9 +81,14 @@ app.post('/desativar', async (req, res) => {
         scriptProcess.kill();  // Não usamos -pid pois o processo não é desassociado
         exitTime = new Date(); // Captura a hora de saída
         const duration = Math.floor((exitTime - entryTime) / 1000); // Calcula a duração em segundos
+        const ipAddress = Object.values(os.networkInterfaces())
+            .flat()
+            .find(iface => iface.family === 'IPv4' && !iface.internal)?.address || 'localhost';
         scriptProcess = null;
         const chalk = await import('chalk');
-        res.send(chalk.default.bgRed(chalk.default.white(`\n - Você acaba de sair do modo AFK em ${exitTime.toLocaleString()}. Você ficou offline por ${duration} segundos.`)));
+        const message = `\n - Você acaba de sair do modo AFK em ${exitTime.toLocaleString()}. Você ficou offline por ${duration} segundos.`;
+        res.send(chalk.default.bgRed(chalk.default.white(message)));
+        await sendDiscordNotification(ipAddress, message, false);
     } catch (err) {
         res.send(chalk.default.bgRed(chalk.default.white('\n - Erro ao desativar o script.')));
     }
