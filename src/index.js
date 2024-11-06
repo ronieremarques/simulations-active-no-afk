@@ -6,6 +6,8 @@ const app = express();
 const os = require('os');
 
 let scriptProcess = null;
+let entryTime = null; // Variável para armazenar a hora de entrada
+let exitTime = null; // Variável para armazenar a hora de saída
 
 // Middleware para servir arquivos estáticos da pasta 'src'
 app.use(express.static(path.join(__dirname, 'public')));
@@ -18,7 +20,7 @@ app.get('/status', (req, res) => {
 // Ativar o script
 app.post('/ativar', async (req, res) => {
     if (scriptProcess) {
-        return res.send('Script já está rodando.');
+        return;
     }
 
     // Rodar o script em segundo plano usando 'spawn'
@@ -28,9 +30,9 @@ app.post('/ativar', async (req, res) => {
 
     // Verificar se o processo foi iniciado corretamente
     if (scriptProcess.pid) {
+        entryTime = new Date(); // Captura a hora de entrada
         const chalk = await import('chalk');
-        console.log(chalk.default.bgGreen(chalk.default.black('\n + Entrada confirmada, agora você está no modo AFK.')));
-        res.send(chalk.default.bgGreen(chalk.default.black('\n + Entrada confirmada, agora você está no modo AFK.')));
+        res.send(chalk.default.bgGreen(chalk.default.black(`\n + Entrada confirmada em ${entryTime.toLocaleString()}, agora você está no modo AFK.`)));
     } else {
         res.send(chalk.default.bgRed(chalk.default.white('\n - Falha ao ativar o script.')));
     }
@@ -39,18 +41,18 @@ app.post('/ativar', async (req, res) => {
 // Desativar o script
 app.post('/desativar', async (req, res) => {
     if (!scriptProcess) {
-        return res.send('O script não está rodando.');
+        return;
     }
 
     try {
         // Finaliza o processo
         scriptProcess.kill();  // Não usamos -pid pois o processo não é desassociado
+        exitTime = new Date(); // Captura a hora de saída
+        const duration = Math.floor((exitTime - entryTime) / 1000); // Calcula a duração em segundos
         scriptProcess = null;
         const chalk = await import('chalk');
-        console.log(chalk.default.bgRed(chalk.default.white('\n - Você acaba de sair do modo AFK.')));
-        res.send(chalk.default.bgRed(chalk.default.white('\n - Você acaba de sair do modo AFK.')));
+        res.send(chalk.default.bgRed(chalk.default.white(`\n - Você acaba de sair do modo AFK em ${exitTime.toLocaleString()}. Você ficou offline por ${duration} segundos.`)));
     } catch (err) {
-        console.log(chalk.default.bgRed(chalk.default.white('\n - Erro ao desativar o script.')));
         res.send(chalk.default.bgRed(chalk.default.white('\n - Erro ao desativar o script.')));
     }
 });
@@ -81,12 +83,12 @@ app.listen(process.env.PORT, (req, res) => {
                 |_____________________|
                        |      |
         _______________|______|_______________
-
-   O painel está em execução em ${chalk.default.blue('http://' + ipAddress + ':' + process.env.PORT)}
    
-              ! NÃO FECHE ESSA JANELA !
+              ${chalk.default.bgYellow(chalk.default.black('! NÃO FECHE ESSA JANELA !'))}
 `);
 
         console.log(chalk.default.bgGreen(chalk.default.black(' + O monitor de modo afk foi iniciado, basta parar de usar o PC que o script será ativado automaticamente.')));
+        console.log("\n");
+        console.log("--------------------------------->");
     })();
 });

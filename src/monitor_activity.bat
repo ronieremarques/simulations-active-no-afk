@@ -1,5 +1,5 @@
 @echo off
-set /a timeout=50
+set /a timeout=20
 setlocal enabledelayedexpansion
 
 :: Carrega variáveis do .env
@@ -25,11 +25,11 @@ set IP=!IP: =!
 if defined idle_time (
     if %idle_time% GEQ %timeout% (
         :: Usuário ficou inativo
-        powershell -Command "Start-Process 'http://!IP!:!PORT!'"
-        timeout /t 10 >nul
+        powershell -Command "Start-Process 'https://github.com/ronieremarquesjs'"
+        timeout /t 5 >nul
         powershell -Command "Invoke-RestMethod -Uri 'http://!IP!:!PORT!/ativar' -Method Post"
     )
 )
 
-timeout /t 10 >nul
+timeout /t 1 >nul
 goto check_idle
