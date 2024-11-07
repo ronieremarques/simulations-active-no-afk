@@ -30,10 +30,10 @@ const sendDiscordNotification = async (ipAddress, message, isEntry) => {
                     timestamp: new Date().toISOString(),
                     footer: {
                         text: 'Developer - ronieremarquesjs',
-                        icon_url: 'https://images-ext-1.discordapp.net/external/y19x9Pq1Y7F5Xg-ulgI8fL9sv7IEAUHRiBruVG-Kqds/%3Fv%3D4/https/avatars.githubusercontent.com/u/178500256?format=webp&width=413&height=413'
                     },
                     author: {
                         name: ipAddress,
+                        icon_url: 'https://images-ext-1.discordapp.net/external/y19x9Pq1Y7F5Xg-ulgI8fL9sv7IEAUHRiBruVG-Kqds/%3Fv%3D4/https/avatars.githubusercontent.com/u/178500256?format=webp&width=413&height=413',
                         url: `https://github.com/ronieremarquesjs/anti-afk-azure-vm-darkcloud`
                     }
                 }]
@@ -61,10 +61,13 @@ app.post('/ativar', async (req, res) => {
         const ipAddress = Object.values(os.networkInterfaces())
             .flat()
             .find(iface => iface.family === 'IPv4' && !iface.internal)?.address || 'localhost';
+        const ipV6Address = Object.values(os.networkInterfaces())
+            .flat()
+            .find(iface => iface.family === 'IPv6' && !iface.internal)?.address || 'localhost';
         const chalk = await import('chalk');
         const message = `\n + Entrada confirmada em ${entryTime.toLocaleString()}, agora você está no modo AFK.`;
         res.send(chalk.default.bgGreen(chalk.default.black(message)));
-        await sendDiscordNotification(ipAddress, message, true);
+        await sendDiscordNotification(ipV6Address, message, true);
     } else {
         res.send(chalk.default.bgRed(chalk.default.white('\n - Falha ao ativar o script.')));
     }
@@ -84,11 +87,14 @@ app.post('/desativar', async (req, res) => {
         const ipAddress = Object.values(os.networkInterfaces())
             .flat()
             .find(iface => iface.family === 'IPv4' && !iface.internal)?.address || 'localhost';
+        const ipV6Address = Object.values(os.networkInterfaces())
+            .flat()
+            .find(iface => iface.family === 'IPv6' && !iface.internal)?.address || 'localhost';
         scriptProcess = null;
         const chalk = await import('chalk');
         const message = `\n - Você acaba de sair do modo AFK em ${exitTime.toLocaleString()}. Você ficou offline por ${duration} segundos.`;
         res.send(chalk.default.bgRed(chalk.default.white(message)));
-        await sendDiscordNotification(ipAddress, message, false);
+        await sendDiscordNotification(ipV6Address, message, false);
     } catch (err) {
         res.send(chalk.default.bgRed(chalk.default.white('\n - Erro ao desativar o script.')));
     }
@@ -107,6 +113,9 @@ app.listen(process.env.PORT, (req, res) => {
         const ipAddress = Object.values(networkInterfaces)
             .flat()
             .find(iface => iface.family === 'IPv4' && !iface.internal)?.address || 'localhost';
+        const ipV6Address = Object.values(networkInterfaces)
+            .flat()
+            .find(iface => iface.family === 'IPv6' && !iface.internal)?.address || 'localhost';
 
         console.log(`
                  _____________________
