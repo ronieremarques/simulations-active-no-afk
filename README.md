@@ -1,3 +1,5 @@
+![Control AFK VMs (2)](https://github.com/user-attachments/assets/d338cc9b-e40f-40de-9044-87bae012eff0)
+
 # Monitor de Atividade
 
 Um monitor que detecta a inatividade do usuário e executa ações específicas.
