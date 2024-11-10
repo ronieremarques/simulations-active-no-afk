@@ -1,8 +1,8 @@
-<h1 align="center"> DarkCloud Control Afk Mode </h1>
+<h1 align="center"> VMs Control Afk Mode </h1>
 
 <p align="center">
-Projeto criado para ajudar a comunidade da DarkCloud-Store em suas máquinas virtuais <br/>
-<a href="https://www.darkcloud.store/">Clique aqui para ir pro site oficial</a>
+Projeto criado para ajudar a comunidade em suas máquinas virtuais <br/>
+<a href="https://www.ronieremarques.dev.br/">Clique aqui para ir pro site oficial do criador</a>
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@ Projeto criado para ajudar a comunidade da DarkCloud-Store em suas máquinas vir
 
 <br>
 
-![Control AFK VMs (2)](https://github.com/user-attachments/assets/d338cc9b-e40f-40de-9044-87bae012eff0)
+![Control AFK VMs (2)](https://github.com/user-attachments/assets/a69199fb-afc4-42a5-8fa3-c258257f7352)
 
 # Monitor de Atividade
 
@@ -54,9 +54,4 @@ Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICEN
 
 ---
 
-Feito com ♥ by Roniere Marques :wave: [Créditos da ideia DarkCloud!](https://www.darkcloud.store/)
-
-[1]: #configuração-inicial
-[2]: #execução-do-monitor
-[3]: #detecção-de-inatividade
-[4]: #encerramento
+Feito com ♥ por Roniere Marques :wave: 
