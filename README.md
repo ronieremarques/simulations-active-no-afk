@@ -1,3 +1,22 @@
+<h1 align="center"> DarkCloud Control Afk Mode </h1>
+
+<p align="center">
+Projeto criado para ajudar a comunidade da DarkCloud-Store em suas máquinas virtuais <br/>
+<a href="https://www.darkcloud.store/">Clique aqui para ir pro site oficial</a>
+</p>
+
+<p align="center">
+  <a href="#-monitordeatividade">JavaScript</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-mododeinstalação">NodeJS</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-mododeuso">Bathfile</a>
+</p>
+
+<p align="center">
+  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=49AA26&labelColor=000000">
+</p>
+
+<br>
+
 ![Control AFK VMs (2)](https://github.com/user-attachments/assets/d338cc9b-e40f-40de-9044-87bae012eff0)
 
 # Monitor de Atividade
