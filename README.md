@@ -54,6 +54,8 @@ Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICEN
 
 ---
 
+Feito com ♥ by Roniere Marques :wave: [Créditos da ideia DarkCloud!](https://www.darkcloud.store/)
+
 [1]: #configuração-inicial
 [2]: #execução-do-monitor
 [3]: #detecção-de-inatividade
