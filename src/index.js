@@ -34,7 +34,7 @@ const sendDiscordNotification = async (ipAddress, message, isEntry) => {
                     author: {
                         name: ipAddress,
                         icon_url: 'https://images-ext-1.discordapp.net/external/y19x9Pq1Y7F5Xg-ulgI8fL9sv7IEAUHRiBruVG-Kqds/%3Fv%3D4/https/avatars.githubusercontent.com/u/178500256?format=webp&width=413&height=413',
-                        url: `https://github.com/ronieremarquesjs/anti-afk-azure-vm-darkcloud`
+                        url: `https://github.com/ronieremarquesjs/control-afk-mode-vms`
                     }
                 }]
             });
@@ -121,7 +121,7 @@ app.listen(process.env.PORT, (req, res) => {
                  _____________________
                 |  _________________  |
                 | |                 | |
-                | |    ${chalk.default.blue('D')}${chalk.default.cyan('a')}${chalk.default.green('r')}${chalk.default.yellow('k')}${chalk.default.red('C')}${chalk.default.magenta('l')}${chalk.default.blue('o')}${chalk.default.green('u')}${chalk.default.yellow('d')}    | |
+                | |  ${chalk.default.blue('C')}${chalk.default.cyan('l')}${chalk.default.green('o')}${chalk.default.yellow('u')}${chalk.default.red('d')}${chalk.default.magenta('s')}${chalk.default.blue('C')}${chalk.default.green('l')}${chalk.default.yellow('o')}${chalk.default.red('u')}${chalk.default.magenta('d')}    | |
                 | |   AFK Control   | |
                 | |   ${chalk.default.red('  P')}${chalk.default.yellow('C')}${chalk.default.green(' ')}${chalk.default.blue('G')}${chalk.default.magenta('A')}${chalk.default.cyan('Y')}      | |
                 | |_________________| |
