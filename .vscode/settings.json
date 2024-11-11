@@ -1,8 +1,0 @@
-{
-    "files.exclude": {
-        "src/package-lock.json": true,
-        "README.md": false,
-        "LICENSE": true,
-        ".gitignore": true,
-    }
-}

@@ -1,0 +1,14 @@
+C:\Users\e\Downloads\Nova pasta\akf-mode\obj\Debug\net8.0-windows\akf-mode.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\e\Downloads\Nova pasta\akf-mode\obj\Debug\net8.0-windows\akf-mode.AssemblyInfoInputs.cache
+C:\Users\e\Downloads\Nova pasta\akf-mode\obj\Debug\net8.0-windows\akf-mode.AssemblyInfo.cs
+C:\Users\e\Downloads\Nova pasta\akf-mode\obj\Debug\net8.0-windows\akf-mode.csproj.CoreCompileInputs.cache
+C:\Users\e\Downloads\Nova pasta\akf-mode\bin\Debug\net8.0-windows\akf-mode.exe
+C:\Users\e\Downloads\Nova pasta\akf-mode\bin\Debug\net8.0-windows\akf-mode.deps.json
+C:\Users\e\Downloads\Nova pasta\akf-mode\bin\Debug\net8.0-windows\akf-mode.runtimeconfig.json
+C:\Users\e\Downloads\Nova pasta\akf-mode\bin\Debug\net8.0-windows\akf-mode.dll
+C:\Users\e\Downloads\Nova pasta\akf-mode\bin\Debug\net8.0-windows\akf-mode.pdb
+C:\Users\e\Downloads\Nova pasta\akf-mode\obj\Debug\net8.0-windows\akf-mode.dll
+C:\Users\e\Downloads\Nova pasta\akf-mode\obj\Debug\net8.0-windows\refint\akf-mode.dll
+C:\Users\e\Downloads\Nova pasta\akf-mode\obj\Debug\net8.0-windows\akf-mode.pdb
+C:\Users\e\Downloads\Nova pasta\akf-mode\obj\Debug\net8.0-windows\akf-mode.genruntimeconfig.cache
+C:\Users\e\Downloads\Nova pasta\akf-mode\obj\Debug\net8.0-windows\ref\akf-mode.dll
