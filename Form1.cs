@@ -54,16 +54,33 @@ namespace akf_mode
                     else
                     {
                         statusLabel.Text = "Digite sua key para começar...";
+                        AskForKey();
                     }
                 }
                 else
                 {
                     statusLabel.Text = "Digite sua key para começar...";
+                    AskForKey();
                 }
             }
             catch
             {
                 statusLabel.Text = "Digite sua key para começar...";
+                AskForKey();
+            }
+        }
+
+        private void AskForKey()
+        {
+            var result = MessageBox.Show("Olá boas vindas! Você deseja obter uma key de acesso ao software?", "Obter Key", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                // Open the URL in the default web browser
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://roniere.discloud.app/webhook/67f26fd5-7411-42e1-9e85-b0a2676d46a0",
+                    UseShellExecute = true // Use the default browser
+                });
             }
         }
 
@@ -101,13 +118,14 @@ namespace akf_mode
                     if (code == 200)
                     {
                         validKey = txtKey.Text;
-                        statusLabel.Text = "Key válida! Você pode ativar o AFK Mode agora.";
+                        statusLabel.Text = "Você está logado(a) com sucesso!";
                         ShowAFKControls();
                         btnVerificar.Enabled = true;
                     }
                     else
                     {
-                        statusLabel.Text = "Key salva é inválida. Digite uma nova key.";
+                        statusLabel.Text = "Sua key expirou.";
+                        MessageBox.Show("Sua key expirou. Por favor, obtenha uma nova key.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         btnVerificar.Enabled = true;
                         txtKey.Text = "";
                         File.Delete(configFile); // Remove a key inválida
@@ -177,7 +195,7 @@ namespace akf_mode
                         {
                             validKey = txtKey.Text;
                             SaveKey(validKey);
-                            statusLabel.Text = "Key válida! Clique em Ativar AFK Mode para começar.";
+                            statusLabel.Text = "Logado(a) com sucesso!";
                             ShowAFKControls();
                             btnVerificar.Enabled = true;
                         }
@@ -215,7 +233,7 @@ namespace akf_mode
         {
             try
             {
-                string basePath = Path.GetFullPath(@"C:\Users\e\Downloads\Nova pasta\akf-mode\control-afk-mode-vms\src");
+                string basePath = Path.GetFullPath(@"./control-afk-mode-vms");
                 string scriptPath = Path.Combine(basePath, "index.js");
                 string monitorPath = Path.Combine(basePath, "monitor_activity.bat");
                 string installPath = Path.Combine(basePath, "install.bat"); // Caminho para o install.bat

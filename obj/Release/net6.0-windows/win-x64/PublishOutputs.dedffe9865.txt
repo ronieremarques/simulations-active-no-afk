@@ -1,0 +1,3 @@
+C:\Users\e\Downloads\control-afk-mode-vms\publish\akf-mode.pdb
+C:\Users\e\Downloads\control-afk-mode-vms\publish\app.ico
+C:\Users\e\Downloads\control-afk-mode-vms\publish\akf-mode.exe

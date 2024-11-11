@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8G2BvHCba64=",
+  "dgSpecHash": "ON87DhOOcag=",
   "success": true,
-  "projectFilePath": "C:\\Users\\e\\Downloads\\Nova pasta\\akf-mode\\akf-mode.csproj",
+  "projectFilePath": "C:\\Users\\e\\Downloads\\control-afk-mode-vms\\akf-mode.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\e\\.nuget\\packages\\microsoft.net.illink.analyzers\\7.0.100-1.23401.1\\microsoft.net.illink.analyzers.7.0.100-1.23401.1.nupkg.sha512",
     "C:\\Users\\e\\.nuget\\packages\\microsoft.net.illink.tasks\\7.0.100-1.23401.1\\microsoft.net.illink.tasks.7.0.100-1.23401.1.nupkg.sha512"
