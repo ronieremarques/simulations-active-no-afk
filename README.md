@@ -8,8 +8,7 @@ Projeto criado para ajudar a comunidade em suas máquinas virtuais <br/>
 <p align="center">
   <a href="#-monitordeatividade">JavaScript</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-mododeinstalação">NodeJS</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-mododeuso">Bathfile</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-mododeuso">C#</a>
+  <a href="#-mododeuso">Bathfile</a>
 </p>
 
 <p align="center">

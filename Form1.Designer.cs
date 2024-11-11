@@ -68,9 +68,9 @@ namespace akf_mode
             
             try
             {
-                if (File.Exists("./app.ico"))
+                if (File.Exists("app.ico"))
                 {
-                    this.Icon = new System.Drawing.Icon("./app.ico");
+                    this.Icon = new System.Drawing.Icon("app.ico");
                 }
             }
             catch { }

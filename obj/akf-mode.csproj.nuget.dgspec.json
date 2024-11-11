@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\e\\Downloads\\control-afk-mode-vms\\akf-mode.csproj": {}
+    "C:\\Users\\e\\Downloads\\control-afk-mode-vms-1.0.1-beta\\akf-mode.csproj": {}
   },
   "projects": {
-    "C:\\Users\\e\\Downloads\\control-afk-mode-vms\\akf-mode.csproj": {
+    "C:\\Users\\e\\Downloads\\control-afk-mode-vms-1.0.1-beta\\akf-mode.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\e\\Downloads\\control-afk-mode-vms\\akf-mode.csproj",
+        "projectUniqueName": "C:\\Users\\e\\Downloads\\control-afk-mode-vms-1.0.1-beta\\akf-mode.csproj",
         "projectName": "akf-mode",
-        "projectPath": "C:\\Users\\e\\Downloads\\control-afk-mode-vms\\akf-mode.csproj",
+        "projectPath": "C:\\Users\\e\\Downloads\\control-afk-mode-vms-1.0.1-beta\\akf-mode.csproj",
         "packagesPath": "C:\\Users\\e\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\e\\Downloads\\control-afk-mode-vms\\obj\\",
+        "outputPath": "C:\\Users\\e\\Downloads\\control-afk-mode-vms-1.0.1-beta\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
