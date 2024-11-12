@@ -1,13 +1,13 @@
 <h1 align="center"> VMs Control Afk Mode </h1>
 
 <p align="center">
-Projeto criado para ajudar a comunidade em suas máquinas virtuais <br/>
-<a href="https://www.ronieremarques.dev.br/">Clique aqui para ir pro site oficial do criador</a>
+Baixe a versão mais recente do software > <a href="https://github.com/ronieremarquesjs/control-afk-mode-vms/releases/tag/v1.0.2-beta">versão 1.0.2-beta</a>
 </p>
 
 <p align="center">
   <a href="#-monitordeatividade">JavaScript</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-mododeinstalação">NodeJS</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-mododeinstalação">C#</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-mododeuso">Bathfile</a>
 </p>
 
