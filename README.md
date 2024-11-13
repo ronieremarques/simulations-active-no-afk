@@ -1,7 +1,7 @@
 <h1 align="center"> VMs Control Afk Mode </h1>
 
 <p align="center">
-Baixe a versão mais recente do software > <a href="https://github.com/ronieremarquesjs/control-afk-mode-vms/releases/download/v1.0.2-beta/1.0.1-beta.zip">versão 1.0.2-beta</a> "Download direto"!
+Baixe a versão mais recente do software > <a href="https://github.com/ronieremarquesjs/control-afk-mode-vms/releases/download/v1.0.2-beta/1.0.2-beta.zip">versão 1.0.2-beta</a> "Download direto"!
 </p>
 
 <p align="center">
