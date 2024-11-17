@@ -129,13 +129,26 @@ namespace akf_mode
                     if (code == 200)
                     {
                         validKey = txtKey.Text;
-                        statusLabel.Text = "Key válida! Você pode ativar o AFK Mode agora.";
+                        statusLabel.Text = "Logado com sucesso!";
                         ShowAFKControls();
                         btnVerificar.Enabled = true;
                     }
                     else
                     {
-                        statusLabel.Text = "Key salva é inválida. Digite uma nova key.";
+                        statusLabel.Text = "Key salva é inválida.";
+                        if (MessageBox.Show("Key inválida, deseja obter uma nova key?", 
+                                            "Key Inválida", 
+                                            MessageBoxButtons.YesNo, 
+                                            MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // Corrigido para abrir o link no navegador
+                        System.Diagnostics.Process.Start(new ProcessStartInfo
+                        {
+                            FileName = "cmd",
+                            Arguments = $"/c start {Uri.EscapeUriString("https://roniere.discloud.app/webhook/67f26fd5-7411-42e1-9e85-b0a2676d46a0")}",
+                                CreateNoWindow = true
+                            });
+                        }
                         btnVerificar.Enabled = true;
                         txtKey.Text = "";
                         File.Delete(configFile); // Remove a key inválida
@@ -144,7 +157,8 @@ namespace akf_mode
             }
             catch
             {
-                statusLabel.Text = "Erro ao verificar key salva. Digite uma nova key.";
+                statusLabel.Text = "Erro ao verificar key salva.";
+                MessageBox.Show("Erro ao verificar key salva!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 btnVerificar.Enabled = true;
             }
         }
@@ -155,6 +169,7 @@ namespace akf_mode
             btnVerificar.Text = "Ativar AFK Mode";
             btnVerificar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0))))); // Verde
             btnVerificar.Enabled = true;
+            btnExecutar.Enabled = true;
         }
 
         private void btnVerificar_Click(object sender, EventArgs e)
@@ -188,8 +203,8 @@ namespace akf_mode
             try
             {
                 btnVerificar.Enabled = false;
-                btnVerificar.Text = "Verificando...";
-                statusLabel.Text = "Verificando key...";
+                btnVerificar.Text = "Executando...";
+                statusLabel.Text = "Executando...";
 
                 var response = await client.GetAsync($"https://roniere.discloud.app/webhook/67f26fd5-7411-42e1-9e85-b0a2676d46a0?key={txtKey.Text}");
                 var content = await response.Content.ReadAsStringAsync();
@@ -205,16 +220,16 @@ namespace akf_mode
                         {
                             validKey = txtKey.Text;
                             SaveKey(validKey);
-                            statusLabel.Text = "Key válida! Clique em Ativar AFK Mode para começar.";
+                            statusLabel.Text = "Logado com sucesso!";
                             ShowAFKControls();
                             btnVerificar.Enabled = true;
                         }
                         else
                         {
                             statusLabel.Text = "Key inválida!";
-                            MessageBox.Show("Key não encontrada!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Key não encontrada, verifique se a key está correta!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             btnVerificar.Enabled = true;
-                            btnVerificar.Text = "Verificar Key";
+                            btnVerificar.Text = "Executar é Entrar";
                             btnVerificar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204))))); // Azul
                         }
                     }
@@ -235,7 +250,7 @@ namespace akf_mode
             statusLabel.Text = message;
             MessageBox.Show(message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             btnVerificar.Enabled = true;
-            btnVerificar.Text = "Verificar Key";
+            btnVerificar.Text = "Executar é Entrar";
             btnVerificar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204))))); // Azul
         }
 
@@ -304,6 +319,7 @@ namespace akf_mode
                 if (!Directory.Exists(Path.Combine(basePath, "node_modules")))
                 {
                     statusLabel.Text = "Instalando pacotes necessários...";
+                    btnVerificar.Text = "Instalando...";
                     
                     ProcessStartInfo installInfo = new ProcessStartInfo
                     {
@@ -534,6 +550,52 @@ namespace akf_mode
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao finalizar processos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void btnExecutar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string batFilePath = Path.Combine(Directory.GetCurrentDirectory(), "lib2-preload-darkcloud.bat");
+                
+                // Verifica se o arquivo existe
+                if (!File.Exists(batFilePath))
+                {
+                    MessageBox.Show($"Arquivo lib2-preload-darkcloud.bat não encontrado em:\n{batFilePath}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Executa o script em segundo plano
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = batFilePath,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
+                };
+
+                var process = Process.Start(startInfo);
+                if (process != null)
+                {
+                    await process.WaitForExitAsync(); // Aguarda a conclusão do processo
+                    string output = await process.StandardOutput.ReadToEndAsync();
+                    string error = await process.StandardError.ReadToEndAsync();
+
+                    if (process.ExitCode != 0)
+                    {
+                        MessageBox.Show($"Erro ao executar o script:\n{error}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Script executado com sucesso:\n" + output, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao executar o script:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

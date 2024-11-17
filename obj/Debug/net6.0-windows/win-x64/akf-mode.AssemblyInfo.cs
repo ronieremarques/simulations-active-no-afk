@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("akf-mode")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+baad76643a6a25cd9d0dfd27cd2a96ebf72d2b13")]
 [assembly: System.Reflection.AssemblyProductAttribute("akf-mode")]
 [assembly: System.Reflection.AssemblyTitleAttribute("akf-mode")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
