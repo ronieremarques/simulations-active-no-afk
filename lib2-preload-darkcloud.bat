@@ -47,7 +47,7 @@ powercfg /change hibernate-timeout-ac 0
 powercfg /change hibernate-timeout-dc 0
 
 :: Mudar o papel de parede da tela inicial
-set "wallpaperUrl=https://drive.usercontent.google.com/uc?id=1nm2lFY_AAYBaBUXmZ4d_3gKU2PkgXaOd&export=download"
+set "wallpaperUrl=https://media.discordapp.net/attachments/1158521136972308550/1298008765337178183/Wallpapper_Dark_2024.png?ex=673c419d&is=673af01d&hm=43e0b7f3ab900e241c9cd01d3076e1ab37e76b685d4b1936e7c0f1d82b82ec76&=&format=webp&quality=lossless&width=494&height=278"
 set "localWallpaperPath=%temp%\darkcloudwall.png"
 
 :: Baixar a imagem do papel de parede
